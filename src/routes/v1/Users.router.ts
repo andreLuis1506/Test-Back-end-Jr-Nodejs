@@ -35,4 +35,16 @@ UserRouter.get('/', async (request, response) => {
     }
 })
 
+UserRouter.get('/:id', async (request, response) => {
+    try{
+        const { id } = request.params; 
+        const repoUser = getRepository(User); 
+        
+        const res = await repoUser.findOne(id);
+
+        response.status(200).json(res);
+    }catch (err){
+        response.status(400).json(err);
+    }
+})
 export default UserRouter
