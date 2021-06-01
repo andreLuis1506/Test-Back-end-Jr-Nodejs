@@ -58,12 +58,22 @@ UserRouter.put('/:id', async (request, response) => {
 
         user.email = email;
         user.senha = senha;
-        console.log(user, id)
 
         const res = await repoUser.update(id, user); 
 
         response.status(200).json(res);
     }catch (err){
+        response.status(400).json(err);
+    }
+})
+
+UserRouter.delete('/', async (request, response) => {
+    try{
+        const repoUser = getRepository(User);
+        const res = await repoUser.createQueryBuilder('Users').delete().execute();
+
+        response.status(200).json({message:"todos os registros deletados", res});
+    }catch(err){
         response.status(400).json(err);
     }
 })
