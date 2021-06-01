@@ -78,5 +78,18 @@ UserRouter.delete('/', async (request, response) => {
     }
 })
 
+UserRouter.delete('/:id', async (request, response) => {
+    try{
+        const { id } = request.params;
+
+        const repoUser = getRepository(User);
+        const res = await repoUser.delete(id);
+        
+        response.status(200).json(res);
+    }catch(err){
+        response.status(400).json(err);
+    }
+})
+
 
 export default UserRouter
