@@ -23,4 +23,16 @@ UserRouter.post('/', async (request, response) => {
     }
 })
 
+UserRouter.get('/', async (request, response) => {
+    try{
+
+        const repoUser = getRepository(User);
+        const res = await repoUser.find();
+        
+        response.status(200).json(res);
+    } catch(err){
+        response.status(400).json(err);
+    }
+})
+
 export default UserRouter
