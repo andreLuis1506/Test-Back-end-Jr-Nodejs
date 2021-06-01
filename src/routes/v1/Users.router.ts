@@ -47,4 +47,26 @@ UserRouter.get('/:id', async (request, response) => {
         response.status(400).json(err);
     }
 })
+
+UserRouter.put('/:id', async (request, response) => {
+    try{
+        const { id } = request.params;
+        const {email, senha} = request.body;
+
+        const repoUser = getRepository(User);
+        const user = new User();
+
+        user.email = email;
+        user.senha = senha;
+        console.log(user, id)
+
+        const res = await repoUser.update(id, user); 
+
+        response.status(200).json(res);
+    }catch (err){
+        response.status(400).json(err);
+    }
+})
+
+
 export default UserRouter
