@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
+import { validate } from 'class-validator';
 
 import User from '../../models/Users';
 
@@ -8,15 +9,17 @@ const UserRouter = Router();
 UserRouter.post('/', async (request, response) => {
     try{
         const { email, senha } = request.body; 
-        const user = new User();
-        
-        user.email = email;
-        user.senha = senha;
-
         const repoUser = getRepository(User);
-        const res = await repoUser.save(user);
+        const user = repoUser.create({email,senha})
+        
+        const errors = await validate(user)
 
-        response.status(201).json(res);
+        if(errors.length === 0){
+            const res = await repoUser.save(user);
+            return response.status(201).json(res);
+        }else{
+            return response.status(400).json(errors);
+        }
 
     }catch (err){
         response.status(400).json(err);
