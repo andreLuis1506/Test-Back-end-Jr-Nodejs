@@ -51,14 +51,18 @@ UserRouter.get('/:id', async (request, response) => {
 UserRouter.put('/:id', async (request, response) => {
     try{
         const { id } = request.params;
-        const {email, senha} = request.body;
-
-        const repoUser = getRepository(User);
         const user = new User();
-
-        user.email = email;
-        user.senha = senha;
-
+        
+        if(request.body.email){
+            
+            user.email = request.body.email;
+        }
+        if(request.body.senha){
+            
+            user.senha = request.body.senha;
+        }
+        
+        const repoUser = getRepository(User);
         const res = await repoUser.update(id, user); 
 
         response.status(200).json(res);
