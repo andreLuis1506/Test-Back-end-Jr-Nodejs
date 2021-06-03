@@ -28,6 +28,7 @@ HTTP | ROUTE | BODY | DESCRIÇÃO |
 ### Minha resolução.
 Optei por salvar as informações em um banco de dados, por questões de praticidade escolhi o Sqlite.
 Para ajudar na manipulação do banco de dados escolhi usar o TypeOrm(Que é utilizado com Typescript).
+Para validações usei a biblioteca class-validator.
 
 ## Testar minha resolução
 Para testar o projeto é muito simples:
