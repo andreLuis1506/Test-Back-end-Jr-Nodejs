@@ -1,25 +1,21 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
-import { validate } from 'class-validator';
 
 import User from '../../models/Users';
 
+import validation from '../../middlewares/validation';
+
 const UserRouter = Router(); 
 
-UserRouter.post('/', async (request, response) => {
+UserRouter.post('/',validation, async (request, response) => {
     try{
         const { email, senha } = request.body; 
         const repoUser = getRepository(User);
         const user = repoUser.create({email,senha})
-        
-        const errors = await validate(user)
 
-        if(errors.length === 0){
-            const res = await repoUser.save(user);
-            return response.status(201).json(res);
-        }else{
-            return response.status(400).json(errors);
-        }
+        const res = await repoUser.save(user);
+        
+        return response.status(201).json(res);
 
     }catch (err){
         response.status(400).json(err);
@@ -51,7 +47,7 @@ UserRouter.get('/:id', async (request, response) => {
     }
 })
 
-UserRouter.put('/:id', async (request, response) => {
+UserRouter.put('/:id',validation, async (request, response) => {
     try{
         const { id } = request.params;
         const user = new User();
