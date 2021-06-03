@@ -19,7 +19,7 @@ async function validation (request: Request, response: Response, next: NextFunct
     if(errors.length === 0){
         next();
     }else{
-        return response.status(400).json(errors);
+        response.status(400).json(errors);
     }
 }
 

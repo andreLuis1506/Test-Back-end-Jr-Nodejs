@@ -28,7 +28,11 @@ UserRouter.get('/', async (request, response) => {
         const repoUser = getRepository(User);
         const res = await repoUser.find();
         
-        response.status(200).json(res);
+        if(res.length === 0){
+            response.status(400).json({message: 'Nenhum usuario encontrado'})
+        }else{
+            response.status(200).json(res);
+        }
     } catch(err){
         response.status(400).json(err);
     }
@@ -41,7 +45,11 @@ UserRouter.get('/:id', async (request, response) => {
         
         const res = await repoUser.findOne(id);
 
-        response.status(200).json(res);
+        if(res){
+            response.status(200).json(res);
+        }else{
+            response.status(400).json({message: 'Nenhum usuario encontrado'})
+        }
     }catch (err){
         response.status(400).json(err);
     }
