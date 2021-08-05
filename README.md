@@ -1,5 +1,4 @@
-# Teste Contele - FullstackJS Jr
-Teste realizado para a vaga de desenvolvedor Jr na contele.
+# Teste Back-end Jr
 
 ## O TESTE
 
@@ -12,7 +11,7 @@ Teste realizado para a vaga de desenvolvedor Jr na contele.
 
 - Cada usuário deverá ter um ID único.
 
-- Gravar as informações em arquivo JSON.
+- Gravar as informações.
 
 ### Documentação
 HTTP | ROUTE | BODY | DESCRIÇÃO |
